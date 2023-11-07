@@ -18,7 +18,7 @@ You can install these libraries using pip
 
 - `SamSim` includes several functions for generating data and performing simulations. Here are some key functions:
 - `sine(A, T, t, p=0)`: Generates sine wave with given `amplitude (A)`, `period (T)`, `time values (t)`, and `phase (p)`.
-- `modu(Am, Tm, t, p=0)`: Generates modulated cosine wave with given `amplitude modulation (Am)`, `period modulation (Tm)`, `time values (t)`, and `phase (p)`.
+- `cosine(Am, Tm, t, p=0)`: Generates modulated cosine wave with given `amplitude modulation (Am)`, `period modulation (Tm)`, `time values (t)`, and `phase (p)`.
 - `cross(signal)`: Calculates number of zero-crossings in a signal.
 - `compare(signal, sample)`: Calculates fit between signal and sample.
 - `logistic_function(x, a, b, c)`: Logistic function for fitting data.
@@ -30,7 +30,7 @@ You can install these libraries using pip
 
 ## Scenarios
 
-`SamSim` defines different scenarios for simulating data, such as changing `amplitude`, `period`, `amplitude modulation`, or all parameters simultaneously. These scenarios are provided as functions like `base`, `fullA`, `fullM`, and `fullX`. Select a scenario to perform simulations with specific parameter configurations.
+`SamSim` defines scenarios for simulating data, such as changing `amplitude`, `period`, `amplitude modulation`, or all parameters simultaneously. These scenarios are provided as functions like `base`, `fullA`, `fullM`, and `fullX`. Select a scenario to perform simulations with specific parameter configurations.
 
 ## Property
 
@@ -40,7 +40,7 @@ You can install these libraries using pip
 
 Functions are provided for creating figures and customizing their properties. Adjust figure size and other settings to change appearance.
 
-# Plot
+## Plot
 
 Plot function generates plots for `insolation`, `simulations`, and `sampling`, and displays results for various scenarios and parameter ranges.
 
