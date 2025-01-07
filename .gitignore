@@ -1,5 +1,14 @@
+# Environment Variables
+.env
+
 # Mac
 *.DS_Store
+
+# Pi
+pi.md
+
+# Python
+__pycache__/
 
 # Virtual Environment
 .venv

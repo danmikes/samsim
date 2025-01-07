@@ -1,55 +1,82 @@
-# GitHub
+# Flask-App
 
-## File
-```
-/app.py
-/pack.txt
-/Dockerfile
-/.github/workflows/docker-build.yml
-```
+## Local
 
-# Router
+### File
+- /app.py
+- /pack.txt
+- /Dockerfile
+- /.github/workflows/docker-build.yml
 
-## Port
-```
-8080 -> 192.168.178.199
-```
+### Script
+- sh script/docker-copy.sh
+- sh script/docker-install.sh
+- sh script/docker-refresh.sh
+- sh script/docker-update.sh
 
-# Pi
+### Environment Variable
+- .env.blank -> .env
+
+## GitHub
+
+### Repository Secret
+- PI_HOST = <Raspi hostname>
+- PI_USER = <Raspi username>
+- PI_PASS = <Raspi password>
+
+## Router
+
+### Port
+- 80 -> 192.168.178.199
+- 443 -> 192.168.178.199
+
+## GitHub-actions
+
+### docker-build.yml
+- `git push` triggers /.github/workflows/docker-build.yml
+- Dockerfile makes Gunicorn-Flask Image
+- Builds and pushes docker-image to GitHub Container-Service
+- Updates docker-compose.yml
+
+## Shell-script
+
+### docker-compose.yml
+- `sh update` triggers 
+  - `docker compose pull`
+  - `docker compose up` | +1 container
+  - `docker compose up` | -1 container
+
+## Log
+```
+docker volume ls
+docker compose logs -f docker-traefik-1
+docker compose logs -f docker-flask-1
+```
 
 ## Docker
 ```
-sudo apt update
-sudo apt install docker.io
-sudo systemctl enable docker
-sudo systemctl start docker
-sudo apt install -y python3 python3-dev python3-env python3-pip
+docker exect -it docker-flask-1 sh
+docker exect -it docker-traefik-1 sh
 ```
 
-## Docker Compose V2
+# Update App
+
+1. push changes to GitHub-repo
 ```
-python -m venv .venv
-source .venv/bin/activate
-pip install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+git push
 ```
 
-## File
+2. verify build by GitHub-action
 ```
-/docker-compose.yml
-/lib/systemd/system/containerd.service
-```
-
-## Start
-```
-docker compose up -d
+cd sh build
 ```
 
-## Stop
+3. copy conf files to Raspi
 ```
-docker compose down
+sh copy
 ```
 
-## Clean
+4. restart Flask-container
 ```
-docker system purge -a
+sh update
 ```

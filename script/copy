@@ -1,0 +1,6 @@
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+scp ../conf/docker-compose.yml $PI_USER@$PI_HOST:~/docker/docker-compose.yml
+scp ../conf/traefik.yml $PI_USER@$PI_HOST:~/docker/traefik.yml
+scp ../conf/traefik_dynamic.yml $PI_USER@$PI_HOST:~/docker/traefik_dynamic.yml

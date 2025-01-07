@@ -1,0 +1,41 @@
+networks:
+  traefik-net:
+    driver: bridge
+
+services:
+  traefik:
+    image: traefik:v3.3
+    networks: 
+      - traefik-net
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.file.filename=/etc/traefik/traefik_dynamic.yml
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certificates:/certificates
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml:ro
+
+  flask:
+    image: ghcr.io/danmikes/docker:latest
+    networks:
+      - traefik-net
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.flask.rule=Host(`dmikes.hopto.org`)
+      - traefik.http.routers.flask.entrypoints=websecure
+      - traefik.http.routers.flask.tls=true
+      - traefik.http.routers.flask.tls.certresolver=myresolver
+      - traefik.http.services.flask.loadbalancer.server.port=5000
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+
+volumes:
+  certificates:

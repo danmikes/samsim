@@ -17,10 +17,10 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
-    
+
     - name: Set up QEMU for ARM emulation
       uses: docker/setup-qemu-action@v1
-    
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
@@ -29,7 +29,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GH_TOKEN }}
 
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v2

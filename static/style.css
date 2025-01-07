@@ -1,3 +1,40 @@
+@font-face {
+  font-family: 'beatifuly';
+  src: url('beatifuly.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'beyond_wonderland';
+  src: url('beyond_wonderland.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'blacksword';
+  src: url('blacksword.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lovely_home';
+  src: url('lovely_home.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+.dark {
+  background-color: #181818;
+  color: darkcyan;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -8,16 +45,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: 'blacksword', sans-serif;
 }
 
-h1 {
+h1, h2 {
   margin: 10px;
-  color: orange;
-}
-
-h2 {
-  margin: 10px;
-  color: darkorange;
 }
 
 .heart {
@@ -28,6 +60,7 @@ h2 {
   transform: rotate(-45deg);
   animation: beat 1s infinite;
   margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 .heart::before,
