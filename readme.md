@@ -6,6 +6,7 @@ This is Python code `(SamSim)` for simulating and analysing data related to inso
 
 Before running the code, have following Python libraries installed:
 
+- ipykernel
 - matplotlib
 - numpy
 - pandas
