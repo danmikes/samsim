@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 import warnings
-from collections import namedtuple
+from collections import ChainMap, namedtuple
+from functools import lru_cache
 from itertools import product
 from IPython.display import clear_output
 from matplotlib.table import Table
@@ -130,13 +131,10 @@ _SAM_SHORT_ = 2 ** np.arange(2, 7, 1)
 _SAM_LONG_ = 2 ** np.arange(1, 10, 0.5)
 
 def create_range(prefix, values):
-  return {f'{prefix}{i}': values for i in range(1, 4)}
+  return {f'{prefix}{i}': np.asarray(values) for i in range(1, 4)}
 
 def ranges(*args):
-  result = {}
-  for arg in args:
-    result.update(arg)
-  return result
+  return dict(ChainMap(*args))
 
 T = create_range('T', 2. ** np.arange(2, 5) * 1e4)
 A = create_range('A', np.arange(0, 26, 5))
@@ -240,19 +238,15 @@ def cosine(Am, Tm, t, p=0):
 def run_ins(par1=PAR1, par2=PAR2, par3=PAR3):
   # Generate Time Series
   t = np.linspace(0, DUR, SIG)
+  pars = [par1, par2, par3]
+  A = [p.A + cosine(p.Am, p.Tm, t)]
 
   # Modulate Amplitude
-  A1 = par1.A + cosine(par1.Am, par1.Tm, t)
-  A2 = par2.A + cosine(par2.Am, par2.Tm, t)
-  A3 = par3.A + cosine(par3.Am, par3.Tm, t)
+  A = [p.A + cosine(p.Am, p.Tm, t) for p in pars]
+  signals = [sine(a, p.T, t) for a, p in zip(A, pars)]
+  s = sum(signals)
 
-  # Calculate sine values for corresponding time values
-  s1 = sine(A1, par1.T, t)
-  s2 = sine(A2, par2.T, t)
-  s3 = sine(A3, par3.T, t)
-  s = s1 + s2 + s3
-
-  return t, s1, s2, s3, s
+  return t, *signals, s
 
 
 # ## Simulation
@@ -271,33 +265,27 @@ Example:
 Demonstrates process by comparing original signal (`signal`) with simulated signal (`sim_x`). Visualises comparison by plotting both signals along with original signal.
 '''
 def cross(signal):
-  average = np.average(signal)
-  return len(np.where(np.diff(np.sign(signal - average)))[0])
+  centered = signal - np.mean(signal)
+  return np.sum(np.diff(np.sign(centered)) != 0)
 
 def compare(signal, sample):
   fit = cross(sample) / cross(signal)
   return fit
 
 def run_sim(t, signal, sam=SAM):
-  fit = 0
-
+  total_fit = 0.0
+  # Pre-allocate arrays
+  sim_t = np.linspace(0, DUR, sam)
+  last_sam_i = last_sam_y = last_sim_x = None
+  
   for _ in range(REP):
-    # Randomly select sample indices
     sam_i = np.sort(np.random.choice(len(signal), sam, replace=False))
-
-    # Extract samples from signal
     sam_y = signal[sam_i]
-
-    # Create x-axis values for sim
-    sim_t = np.linspace(0, DUR, sam)
-
-    # Linearly interpolate samples to match signal lengths
     sim_x = np.interp(t, sim_t, sam_y)
-
-    # Calculate similarity between signal and sim
-    fit += compare(signal, sim_x)
-
-  return t[sam_i], sam_y, sim_t, sim_x, fit / REP
+    total_fit += compare(signal, sim_x)
+    last_sam_i, last_sam_y, last_sim_x = sam_i, sam_y, sim_x
+  
+  return t[last_sam_i], last_sam_y, sim_t, last_sim_x, total_fit / REP
 
 
 # ## Simulations
@@ -349,35 +337,33 @@ Function:
 Example:
 - Code allows to vary parameters such as period (T), amplitude (A), period modulation (Tm), amplitude modulation (Am), and phase (p) to study their influence on signal similarity. It provides insights into how different parameter settings affect similarity between signals.
 '''
+
 def run_params(param_ranges):
   sams = []
   fits = []
-
-  # Generate all permutations of parameters
-  param_combinations = list(product(*param_ranges.values()))
-
-  # Iterate over all parameter combinations and perform operations
+  param_combinations = product(*param_ranges.values())
+  
+  # Predefine default values
+  defaults = {
+    'T1': _T1, 'T2': _T2, 'T3': _T3,
+    'A1': _A1, 'A2': _A2, 'A3': _A3,
+    'Tm1': _Tm1, 'Tm2': _Tm2, 'Tm3': _Tm3,
+    'Am1': _Am1, 'Am2': _Am2, 'Am3': _Am3,
+    'p1': _p1, 'p2': _p2, 'p3': _p3,
+    'sam': SAM
+  }
+  
   for combination in param_combinations:
-    # Set variables
-    T1, T2, T3, A1, A2, A3, Tm1, Tm2, Tm3, Am1, Am2, Am3, p1, p2, p3, sam = _T1, _T2, _T3, _A1, _A2, _A3, _Tm1, _Tm2, _Tm3, _Am1, _Am2, _Am3, _p1, _p2, _p3, SAM
-    param_values = {param: int(value) if param == 'sam' else value for param, value in zip(param_ranges.keys(), combination)}
-
-    # Extract A values
-    if 'T1' in param_values:
-      T1, T2, T3 = [param_values[f'T{i}'] for i in range(1, 4)]
-    if 'A1' in param_values:
-      A1, A2, A3 = [param_values[f'A{i}'] for i in range(1, 4)]
-    if 'Tm1' in param_values:
-      Tm1, Tm2, Tm3 = [param_values[f'Tm{i}'] for i in range(1, 4)]
-    if 'Am1' in param_values:
-      Am1, Am2, Am3 = [param_values[f'Am{i}'] for i in range(1, 4)]
-    if 'p1' in param_values:
-      p1, p2, p3 = [param_values[f'p{i}'] for i in range(1, 4)]
-    if 'sam' in param_values:
-      sam = param_values['sam']
-
+    params = defaults.copy()
+    # Update with current combination
+    for param, value in zip(param_ranges.keys(), combination):
+      params[param] = int(value) if param == 'sam' else value
+    
     # Generate signals
-    pars = fullX(T1=T1, T2=T2, T3=T3, A1=A1, A2=A2, A3=A3, Tm1=Tm1, Tm2=Tm2, Tm3=Tm3, Am1=Am1, Am2=Am2, Am3=Am3, p1=p1, p2=p2, p3=p3)
+    pars = fullX(**{k: params[k] for k in ['T1','T2','T3','A1','A2','A3',
+                                          'Tm1','Tm2','Tm3','Am1','Am2','Am3',
+                                          'p1','p2','p3']})
+
     t, _, _, _, signal = run_ins(*pars)
 
     # Simulate samples
@@ -414,19 +400,24 @@ def logistic_function(x, a, b, c):
   return a / (1 + np.exp(-b * (np.log(x) - c)))
 
 def logistic_fit(x_data, y_data, params, maxfev=1e4):
-  return curve_fit(logistic_function, x_data, y_data, params, maxfev=int(maxfev))
+  x_tuple = tuple(x_data)
+  y_tuple = tuple(y_data)
+  params_tuple = tuple(params)
+  return curve_fit(logistic_function, x_tuple, y_tuple, params_tuple, maxfev=int(maxfev))
 
 def find_x_for_y(y, a, b, c):
   x = np.exp(c + np.log(a / (1 / y - 1)) / b)
   return x
 
 def set_plot_prop(ax, x_scale, y_scale, x_title, y_title, title, xlim=None, ylim=None):
-  ax.set(xscale=x_scale, yscale=y_scale, xlabel=x_title, ylabel=y_title, title=title, xlim=xlim, ylim=ylim)
-  ax.grid(True, which='both', color='#333')
-  if xlim is None:
-    ax.autoscale(axis='x')
-  if ylim is None:
-    ax.autoscale(axis='y')
+  ax.set(
+    xscale=x_scale, yscale=y_scale,
+    xlabel=x_title, ylabel=y_title,
+    title=title,
+    xlim=xlim if xlim is not None else ax.get_xlim(),
+    ylim=ylim if ylim is not None else ax.get_ylim()
+  )
+  ax.grid(True, which='both', color='#333', alpha=0.7)
 
 def insolation(fig, pars):
   t, s1, s2, s3, s = run_ins(*pars)
