@@ -1,27 +1,6 @@
 @font-face {
-  font-family: 'beatifuly';
-  src: url('beatifuly.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'beyond_wonderland';
-  src: url('beyond_wonderland.ttf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'blacksword';
   src: url('blacksword.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'lovely_home';
-  src: url('lovely_home.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }

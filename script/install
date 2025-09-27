@@ -1,9 +1,0 @@
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-
-ssh $PI_USER@$PI_HOST << EOF
-  sudo apt-get update && sudo apt-get upgrade
-  curl -fsSL https://get.docker.com -o get-docker.sh
-  sudo sh get-docker.sh
-  sudo usermod -aG docker $PI_USER
-EOF

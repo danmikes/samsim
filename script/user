@@ -3,4 +3,4 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 URL="https://api.github.com/user"
 curl -H "Authorization: token $GH_TOKEN" \
-     $URL | jq '{login: .login, id: .id}'
+  $URL | jq '{login: .login, id: .id}'

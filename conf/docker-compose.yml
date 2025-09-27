@@ -28,6 +28,17 @@ services:
     networks:
       - traefik-net
     restart: always
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     labels:
       - traefik.enable=true
       - traefik.http.routers.flask.rule=Host(`dmikes.hopto.org`)
