@@ -1,15 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  <title>Docker-App</title>
-</head>
-<body class="dark">
-  <h1>Docker-App</h1>
-  <div class="heart"></div>
-  <h2 class="blacksword">Welcome</h2>
-</body>
-</html>
+{% extends 'base.htm' %}
+
+{% block title %}Mikes Consult - Home{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1 has-text-centered has-text-light">IT Consulting</h1>
+
+    <div class="columns is-multiline">
+      <div class="column is-4">
+        <div class="card feature-card">
+          <div class="card-content has-text-centered">
+            <div class="icon is-large has-text-success">
+              <i class="fas fa-handshake fa-3x" style="color: yellow;"></i>
+            </div>
+            <h3 class="title is-4 mt-4">Cohesion</h3>
+            <p>Close collaboration for mutual benefit</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <div class="card feature-card">
+          <div class="card-content has-text-centered">
+            <div class="icon is-large has-text-info">
+              <i class="fas fa-chart-bar fa-3x" style="color: cyan;"></i>
+            </div>
+            <h3 class="title is-4 mt-4">Analysis</h3>
+            <p>Solid preparation for effective strategy</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <div class="card feature-card">
+          <div class="card-content has-text-centered">
+            <div class="icon is-large has-text-primary">
+              <i class="fas fa-rocket fa-3x" style="color: magenta;"></i>
+            </div>
+            <h3 class="title is-4 mt-4">Speed</h3>
+            <p>Swift implementation for optimum result</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

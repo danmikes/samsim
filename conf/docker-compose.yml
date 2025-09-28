@@ -25,6 +25,7 @@ services:
 
   flask:
     image: ghcr.io/danmikes/docker:latest
+    pull_policy: always
     networks:
       - traefik-net
     restart: always

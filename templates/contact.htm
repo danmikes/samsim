@@ -1,0 +1,51 @@
+{% extends 'base.htm' %}
+
+{% block title %}Mikes Consult - Contact{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-two-thirds">
+        <h1 class="title is-1 has-text-centered has-text-light">Contact</h1>
+
+        <div class="box contact-form">
+          <form method="POST">
+            <div class="field">
+              <label class="label has-text-light">Name</label>
+              <div class="control">
+                <input class="input" type="text" name="name" placeholder="FAMILY Name" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label has-text-light">Email</label>
+              <div class="control">
+                <input class="input" type="email" name="email" placeholder="email" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label has-text-light">Message</label>
+              <div class="control">
+                <textarea class="input" type="textarea" name="message" placeholder="message" required style="min-height: 150px;"></textarea>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button type="submit" class="button is-primary is-fullwidth is-medium">
+                  <span class="icon">
+                    <i class="fas fa-paper-plane"></i>
+                  </span>
+                  <span>SEND</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Image
+name: Deploy Docker to Raspi
 
 on:
   push:
@@ -58,7 +58,7 @@ jobs:
         target: "~/docker/"
         strip_components: 1
         port: 22
-        timeout: 60s
+        timeout: 4m
         command_timeout: 10m
 
     - name: Deploy to RasPi
@@ -74,3 +74,5 @@ jobs:
           docker system prune -f --filter label=com.docker.compose.project=docker --filter label=com.docker.compose.service=flask
           echo "Deploy complete!"
           docker compose ps
+        command_timeout: 20m
+        timeout: 30m

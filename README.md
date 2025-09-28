@@ -1,82 +1,30 @@
 # Flask-App
+- Mikes-Consult
+- Flask Python Jinja Bulma Docker
 
-## Local
+## Code
+- [github](https://github.com/danmikes/docker.git)
 
-### File
-- /app.py
-- /pack.txt
-- /Dockerfile
-- /.github/workflows/docker-build.yml
-
-### Script
-- sh script/docker-copy.sh
-- sh script/docker-install.sh
-- sh script/docker-refresh.sh
-- sh script/docker-update.sh
-
-### Environment Variable
-- .env.blank -> .env
-
-## GitHub
-
-### Repository Secret
-- PI_HOST = <Raspi hostname>
-- PI_USER = <Raspi username>
-- PI_PASS = <Raspi password>
+## Install
+- `python3.13 -m venv venv`
+- `python -m pip install -r conf/pack.txt`
 
 ## Router
+- [192.168.2.254](http://192.168.2.254)
+- `80 -> 192.168.178.199`
+- `443 -> 192.168.178.199`
 
-### Port
-- 80 -> 192.168.178.199
-- 443 -> 192.168.178.199
+## Develop
+- `flask run --debug`
+- `git push`
 
-## GitHub-actions
+## View
+- [local](http://localhost:5000)
+- [remote](https://dmikes.hopto.org)
+- [health](https://dmikes.hopto.org/health)
 
-### docker-build.yml
-- `git push` triggers /.github/workflows/docker-build.yml
-- Dockerfile makes Gunicorn-Flask Image
-- Builds and pushes docker-image to GitHub Container-Service
-- Updates docker-compose.yml
-
-## Shell-script
-
-### docker-compose.yml
-- `sh update` triggers 
-  - `docker compose pull`
-  - `docker compose up` | +1 container
-  - `docker compose up` | -1 container
-
-## Log
-```
-docker volume ls
-docker compose logs -f docker-traefik-1
-docker compose logs -f docker-flask-1
-```
-
-## Docker
-```
-docker exect -it docker-flask-1 sh
-docker exect -it docker-traefik-1 sh
-```
-
-# Update App
-
-1. push changes to GitHub-repo
-```
-git push
-```
-
-2. verify build by GitHub-action
-```
-cd sh build
-```
-
-3. copy conf files to Raspi
-```
-sh copy
-```
-
-4. restart Flask-container
-```
-sh update
-```
+## Check
+- `source .env`
+- `sh script/cache`
+- `sh script/build`
+- `sh script/user`

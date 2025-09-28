@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional consulting services by Mikes Consult">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>{% block title %}Mikes Consult{% endblock %}</title>
+</head>
+<body class="has-background-dark has-text-light">
+  <div class="is-flex is-flex-direction-column" style="min-height: 100vh;">
+    {% include 'head.htm' %}
+
+    <main class="is-flex-grow-1">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="container mt-4">
+            {% for category, message in messages %}
+              <div class="notification is-{{ 'success' if category == 'success' else 'info' }} is-light">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    {% include 'foot.htm' %}
+  </div>
+</body>
+</html>
