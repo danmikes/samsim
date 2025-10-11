@@ -42,7 +42,7 @@ services:
       start_period: 40s
     labels:
       - traefik.enable=true
-      - traefik.http.routers.flask.rule=Host(`dmikes.hopto.org`)
+      - traefik.http.routers.flask.rule=Host(`dmikes.duckdns.org`)
       - traefik.http.routers.flask.entrypoints=websecure
       - traefik.http.routers.flask.tls=true
       - traefik.http.routers.flask.tls.certresolver=myresolver

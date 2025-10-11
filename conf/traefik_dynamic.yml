@@ -9,7 +9,7 @@ http:
     http-to-https:
       entryPoints:
         - web
-      rule: Host(`dmikes.hopto.org`)
+      rule: Host(`dmikes.duckdns.org`)
       middlewares:
         - redirect-to-https
       service: noop@internal

@@ -1,27 +1,38 @@
-<footer class="footer has-background-dark has-text-light">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <div class="content mt-3 has-text-centered">
-          <span class="mr-4">
-            <i class="fas fa-phone mr-2" style="color: yellow;"></i>[NL]6.4744.3505
-          </span>
-          <span class="mr-4">
-            <i class="fas fa-envelope mr-2" style="color: cyan;"></i>max8[at]post[dot]cz
-          </span>
-          <span class="mr-4">
-            <i class="fas fa-location-dot mr-2" style="color: magenta;"></i>2135RB Hoofddorp, Holland
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <hr class="has-background-grey">
-
-    <div class="content has-text-centered">
-      <p>
-        <strong class="has-text-light">Mikes Consult</strong>
-      </p>
-    </div>
+<footer class="container">
+  <div class="text-center">
+    <a href="https://wa.me/+31647443505?text=Hello%20Mikes%20Consult%2C%20I%20would%20like%20to%20get%20in%20touch" class="phone">
+      <i class="fas fa-phone mr-1" style="color: yellow;"></i>
+      [NL]6.4744.3505
+    </a>
+    
+    <a href="#" onclick="this.href='mailto:'+'max8'+'@'+'post.cz'" class="mail">
+      <i class="fas fa-envelope mr-1" style="color: cyan;"></i>
+      <script>document.write('max8'+'[@]'+'post'+'[.]'+'cz');</script>
+    </a>
+    
+    <a href="https://maps.google.com/?q=2135RB+Hoofddorp+Netherlands" target="_blank" class="location">
+      <i class="fas fa-location-dot mr-1" style="color: magenta;"></i>
+      2135RB Hoofddorp [NL]
+    </a>
   </div>
+
+  <hr>
+
+  <p class="text-center">
+    <strong>Mikes Consult</strong>
+  </p>
 </footer>
+
+<style>
+.text-center a {
+  display: inline-block;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+
+.phone:hover { color: #ff0; }
+.mail:hover { color: #0ff; }
+.location:hover { color: #f0f; }
+
+.mr-1 { margin-right: 0.25rem; }
+</style>

@@ -3,7 +3,7 @@
 - Flask Python Jinja Bulma Docker
 
 ## Code
-- [github](https://github.com/danmikes/docker.git)
+- [github](https://github.com/danmikes/docker)
 
 ## Install
 - `python3.13 -m venv venv`
@@ -11,20 +11,14 @@
 
 ## Router
 - [192.168.2.254](http://192.168.2.254)
-- `80 -> 192.168.178.199`
-- `443 -> 192.168.178.199`
+- `80 -> 77.169.29.77`
+- `443 -> 77.169.29.77`
 
 ## Develop
 - `flask run --debug`
+- [view](http://localhost:5000)
+
+## Deploy
 - `git push`
-
-## View
-- [local](http://localhost:5000)
-- [remote](https://dmikes.hopto.org)
-- [health](https://dmikes.hopto.org/health)
-
-## Check
-- `source .env`
-- `sh script/cache`
-- `sh script/build`
-- `sh script/user`
+- [health](https://dmikes.duckdns.org/health)
+- [view](https://dmikes.duckdns.org)

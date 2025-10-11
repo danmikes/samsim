@@ -1,18 +1,6 @@
-# Environment Variables
-.env
-
-# Mac
-*.DS_Store
-
-# Pi
-pi.md
-
-# Python
 __pycache__/
-
-# Virtual Environment
-.venv
-venv
-
-# VsCode
-.vscode
+.venv/
+.vscode/
+.env
+pi.md
+*.DS_Store

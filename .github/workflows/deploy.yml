@@ -54,12 +54,12 @@ jobs:
         host: ${{ secrets.PI_HOST }}
         username: ${{ secrets.PI_USER }}
         key: ${{ secrets.PI_KEY }}
-        source: "conf/*.yml"
+        source: "conf/*,config.py,pack.txt"
         target: "~/docker/"
         strip_components: 1
         port: 22
-        timeout: 4m
-        command_timeout: 10m
+        timeout: 10m
+        command_timeout: 20m
 
     - name: Deploy to RasPi
       uses: appleboy/ssh-action@v1.0.3
@@ -72,7 +72,5 @@ jobs:
           docker compose pull flask
           docker compose up -d --no-deps flask
           docker system prune -f --filter label=com.docker.compose.project=docker --filter label=com.docker.compose.service=flask
-          echo "Deploy complete!"
-          docker compose ps
+        timeout: 10m
         command_timeout: 20m
-        timeout: 30m
