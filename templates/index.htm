@@ -1,29 +1,20 @@
-{% extends 'base.htm' %}
-
-{% block title %}Mikes Consult | home{% endblock %}
-
-{% block content %}
-<section class="container">
-  <h1 class="text-center">IT Consulting</h1>
-
-  <div class="grid">
-    <article class="feature-card">
-      <i class="fas fa-handshake fa-3x" style="color: yellow;"></i>
-      <h3>Cohesion</h3>
-      <p>Close collaboration for mutual benefit</p>
-    </article>
-
-    <article class="feature-card">
-      <i class="fas fa-chart-bar fa-3x" style="color: cyan;"></i>
-      <h3>Analysis</h3>
-      <p>Solid preparation for effective strategy</p>
-    </article>
-
-    <article class="feature-card">
-      <i class="fas fa-rocket fa-3x" style="color: magenta;"></i>
-      <h3>Speed</h3>
-      <p>Swift implementation for optimum result</p>
-    </article>
-  </div>
-</section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="build" content="{{ build }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional consulting services by Mikes Consult">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>{% block title %}Mikes Consult{% endblock %}</title>
+</head>
+<body data-theme="dark">
+  <section class="container">
+    <h1 class="center-title">Docker</h1>
+  </section>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

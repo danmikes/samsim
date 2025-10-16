@@ -7,12 +7,10 @@ ENV TZ=Europe/Amsterdam
 
 copy pack.txt .
 
-run apk add --no-cache gcc musl-dev linux-headers libffi-dev openssl-dev && \
-  pip install --no-cache-dir -r pack.txt && \
-  apk del gcc musl-dev linux-headers libffi-dev
+run pip install --no-cache-dir -r pack.txt
 
-copy app.py config.py .
+copy app.py .
 copy templates/ ./templates/
 copy static/ ./static/
 
-cmd ["python", "app.py"]
+cmd ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
