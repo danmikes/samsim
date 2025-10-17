@@ -5,6 +5,11 @@ http:
         scheme: https
         permanent: true
 
+    flask-native-strip:
+      stripPrefix:
+        prefixes:
+          - "/app"
+
   routers:
     http-to-https:
       entryPoints:
@@ -13,6 +18,22 @@ http:
       middlewares:
         - redirect-to-https
       service: noop@internal
+
+    flask-native:
+      rule: "Host(`dmikes.duckdns.org`) && PathPrefix(`/app`)"
+      entryPoints:
+        - websecure
+      service: flask-native
+      tls:
+        certResolver: myresolver
+      middlewares:
+        - flask-native-strip
+
+  services:
+    flask-native:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:5001"
 
 tls:
   options:
