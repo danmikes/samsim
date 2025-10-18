@@ -54,8 +54,8 @@ jobs:
         host: ${{ secrets.PI_HOST }}
         username: ${{ secrets.PI_USER }}
         key: ${{ secrets.PI_KEY }}
-        source: "conf/*,config.py,pack.txt"
-        target: "~/docker/"
+        source: "app.py,samsim.py,requirements.txt,static/,templates/"
+        target: "~/samsim/"
         strip_components: 1
         port: 22
         timeout: 10m
@@ -68,7 +68,7 @@ jobs:
         username: ${{ secrets.PI_USER }}
         key: ${{ secrets.PI_KEY }}
         script: |
-          cd ~/docker
+          cd ~/samsim
           docker compose pull flask
           docker compose up -d --no-deps flask
           docker system prune -f --filter label=com.docker.compose.project=docker --filter label=com.docker.compose.service=flask

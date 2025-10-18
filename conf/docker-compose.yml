@@ -19,12 +19,12 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - certificates:/certificates
-      - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml:ro
+      - ./conf/certificates:/certificates
+      - ./conf/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./conf/traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml:ro
 
   flask:
-    image: ghcr.io/danmikes/docker:latest
+    image: ghcr.io/danmikes/samsim:latest
     pull_policy: always
     networks:
       - traefik-net
@@ -47,7 +47,3 @@ services:
       - traefik.http.routers.flask.tls=true
       - traefik.http.routers.flask.tls.certresolver=myresolver
       - traefik.http.services.flask.loadbalancer.server.port=5000
-    command: gunicorn --bind 0.0.0.0:5000 app:app
-
-volumes:
-  certificates:

@@ -4,5 +4,6 @@ __pycache__/
 .venv/
 .vscode/
 Dockerfile
+.dockerignore
 README.md
 .DS_Store

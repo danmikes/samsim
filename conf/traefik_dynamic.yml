@@ -5,10 +5,15 @@ http:
         scheme: https
         permanent: true
 
-    flask-native-strip:
+    flask-strip:
       stripPrefix:
         prefixes:
           - "/app"
+
+    flask-script-name:
+      headers:
+        customRequestHeaders:
+          X-Script-Name: "/app"
 
   routers:
     http-to-https:
@@ -19,7 +24,7 @@ http:
         - redirect-to-https
       service: noop@internal
 
-    flask-native:
+    flask-app:
       rule: "Host(`dmikes.duckdns.org`) && PathPrefix(`/app`)"
       entryPoints:
         - websecure
@@ -27,13 +32,14 @@ http:
       tls:
         certResolver: myresolver
       middlewares:
-        - flask-native-strip
+        - flask-strip
+        - flask-script-name
 
   services:
     flask-native:
       loadBalancer:
         servers:
-          - url: "http://host.docker.internal:5001"
+          - url: "http://172.17.0.1:5001"
 
 tls:
   options:
@@ -42,7 +48,4 @@ tls:
       cipherSuites:
         - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
         - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-        - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
-        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+      sessionTicket: {}
