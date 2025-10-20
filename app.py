@@ -1,10 +1,18 @@
 import io
-from flask import Flask, render_template, jsonify, request, send_file
+from flask import current_app, Flask, render_template, jsonify, request, send_file
 from datetime import datetime
-import samsim as ss
+from git import Repo
+import core as ss
 import matplotlib.pyplot as plt
 
 app = Flask(__name__)
+app.config['APPLICATION_ROOT'] = '/samsim'
+
+def config_app():
+  app.config.update({
+    'WORKING_DIRECTORY': '/home/dmikes/samsim',
+    'WSGI_PATH': '/var/www/dmikes_eu_pythonanywhere_com_wsgi.py',
+  })
 
 params = [
   [{'name': name, 'label': name, 'type': 'number', 'value': val, 'size': size, 'color': color}
@@ -123,6 +131,19 @@ def run_animation():
     return send_file(buf, mimetype='image/png')
   except Exception as e:
     return jsonify({'error': str(e)}), 500
+
+@app.route('/update', methods=['POST'])
+def update():
+  if request.method == 'POST':
+    repo = Repo(current_app.config['WORKING_DIRECTORY'])
+    origin = repo.remotes.origin
+    origin.fetch()
+    repo.git.reset('--hard', 'origin/main')
+
+    os.system(f"touch {current_app.config['WSGI_PATH']}")
+    return 'PythonAnywhere updated', 200
+  else:
+    return 'Invalid request', 405
 
 @app.route('/health')
 def health_check():
