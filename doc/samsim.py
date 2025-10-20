@@ -10,7 +10,6 @@ import numpy as np
 import time
 import warnings
 from collections import ChainMap, namedtuple
-from functools import lru_cache
 from itertools import product
 from IPython.display import clear_output
 from matplotlib.table import Table

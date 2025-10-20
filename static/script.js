@@ -65,20 +65,17 @@ function handleButtonClick(event) {
     case 'reset':
       resetParameters();
       break;
-    case 'run_ins':
+    case 'insolation':
       runInsolation(params);
       break;
-    case 'run_sim':
+    case 'simulation':
       runSimulation(params);
       break;
-    case 'run_sims':
+    case 'simulations':
       runSimulations(params);
       break;
-    case 'run_params':
+    case 'parameters':
       runParametersAnalysis();
-      break;
-    case 'plot_pars':
-      runParameterPlots();
       break;
   }
 }
@@ -149,7 +146,7 @@ function displayPlot(url) {
         alt="Plot" 
         style="max-width: 100%; border: 1px solid #333;"
         onload="hideLoader()"
-        onError="hideLoader()"
+        onerror="hideLoader()">
     </div>
   `;
 }

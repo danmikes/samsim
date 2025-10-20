@@ -1,9 +1,7 @@
-name: Deploy to PythonAnywhere
+name: Deploy to Google Cloud Run
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   call-webhook:
@@ -11,4 +9,4 @@ jobs:
     steps:
       - name: Trigger deploy
         run: |
-          curl -f -X POST https://dmikes.eu.pythonanywhere.com/samsim/update
+          curl -f -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" "${{ secrets.DEPLOY_URL }}"

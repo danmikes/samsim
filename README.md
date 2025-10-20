@@ -3,7 +3,7 @@
 - Flask Python Jinja Pico Docker
 
 ## Code
-- [github](https://github.com/danmikes/samsim)
+- [github](https://github.com/danmikes)
 
 ## Install
 - `source script/setup.sh`
@@ -19,5 +19,5 @@
 
 ## Deploy
 - `git push`
-- [health](https://dmikes.duckdns.org/samsim/health)
-- [view](https://dmikes.duckdns.org/samsim)
+- [health](https://dmikes.duckdns.org/health)
+- [view](https://dmikes.duckdns.org)
