@@ -17,6 +17,9 @@
 - `flask run --debug`
 - [view](http://localhost:5000)
 
+## Test
+- `pytest`
+
 ## Deploy
 - `git push`
 - [health](https://dmikes.duckdns.org/health)

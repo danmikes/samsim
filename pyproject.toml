@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+markers = [
+  "slow: mark test as slow running",
+  "performance: mark test as performance test",
+  "system: mark test as system test",
+  "backend: mark test as backend test",
+  "frontend: mark test as frontend test",
+  "deploy: mark test as deployment test",
+  "analysis: mark test as analysis blueprint test",
+  "dashboard: mark test as dashboard blueprint test",
+  "setting: mark test as setting blueprint test"
+]

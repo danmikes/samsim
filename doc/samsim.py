@@ -21,13 +21,13 @@ warnings.filterwarnings('ignore', category=RuntimeWarning)
 # ## Parameter
 
 '''
-Define Parameters and Values
+Define Setting and Values
 
-Code sets up various parameters and values for simulation or model. 
-Each parameter represents specific aspect of model, such as period, amplitude, modulation, phase, and other simulation parameters.
+Code sets up various setting and values for simulation or model.
+Each parameter represents specific aspect of model, such as period, amplitude, modulation, phase, and other simulation setting.
 
-- Parameters are assigned with values, and these values are formatted for readability.
-- Parameters are organised using the namedtuple 'Pars' for better code structure.
+- Setting are assigned with values, and these values are formatted for readability.
+- Setting are organised using the namedtuple 'Pars' for better code structure.
 - Simulation duration, signal rate, sample rate, and repeat number are defined as constants.
 
 Parameter:
@@ -43,9 +43,9 @@ Constant:
 - SAM: Sample-rate.
 - REP: Repeat number.
 
-Parameters and values are organised into named tuples (PAR1, PAR2, PAR3) for easier access.
+Setting and values are organised into named tuples (PAR1, PAR2, PAR3) for easier access.
 
-Prints parameters and sample rate (SAM) for reference.
+Prints setting and sample rate (SAM) for reference.
 '''
 def form(val):
   if val >= 1e3:
@@ -109,11 +109,11 @@ print(SAM)
 Generate Parameter Ranges and Values
 
 Code generates various parameter ranges and values used for simulation or model.
-Parameters represent different aspects of model, and they are organised into named dictionaries for easier access.
+Setting represent different aspects of model, and they are organised into named dictionaries for easier access.
 
 - _SAM_SHORT_ and _SAM_LONG_ are arrays of sample rates.
 - Functions like create_range, ranges, and ranges(*args) are used to create dictionaries of parameter ranges.
-- Parameters like T, A, Tm, Am, and p are organised into named dictionaries with different prefixes.
+- Setting like T, A, Tm, Am, and p are organised into named dictionaries with different prefixes.
 
 Generated Parameter Dictionary:
 - _T_: Period ranges with 'T' prefix.
@@ -162,16 +162,16 @@ print_params(_A_)
 Edit Amplitude or Modulation | Generate Parameter Sets
 
 Code defines functions to generate different parameter sets for simulation or model.
-These functions allow one to edit amplitude (A) or modulation (Tm and Am) of specific parameters.
+These functions allow one to edit amplitude (A) or modulation (Tm and Am) of specific setting.
 
 Function:
 - `base(A1=_A1, A2=_A2, A3=_A3)`: Edit amplitude with no modulation.
 - `fullA(A1=_A1, A2=_A2, A3=_A3)`: Edit amplitude with default modulation.
 - `fullM(Tm1=_Tm1, Tm2=_Tm2, Tm3=_Tm3, Am1=_Am1, Am2=_Am2, Am3=_Am3)`: Edit modulation with specified Tm and Am values.
-- `fullX(T1=_T1, T2=_T2, T3=_T3, A1=_A1, A2=_A2, A3=_A3, Tm1=_Tm1, Tm2=_Tm2, Tm3=_Tm3, Am1=_Am1, Am2=_Am2, Am3=_Am3, p1=_p1, p2=_p2, p3=_p3)`: Edit all parameters, including amplitude, modulation, and phase.
-- `full()`: Use default values for all parameters.
+- `fullX(T1=_T1, T2=_T2, T3=_T3, A1=_A1, A2=_A2, A3=_A3, Tm1=_Tm1, Tm2=_Tm2, Tm3=_Tm3, Am1=_Am1, Am2=_Am2, Am3=_Am3, p1=_p1, p2=_p2, p3=_p3)`: Edit all setting, including amplitude, modulation, and phase.
+- `full()`: Use default values for all setting.
 
-These functions return sets of parameters represented as tuples of named tuples (Par), each specifying different combinations of period (T), amplitude (A), period modulation (Tm), amplitude modulation (Am), and phase (p).
+These functions return sets of setting represented as tuples of named tuples (Par), each specifying different combinations of period (T), amplitude (A), period modulation (Tm), amplitude modulation (Am), and phase (p).
 
 Example:
 Parameter sets.
@@ -226,7 +226,7 @@ Function:
 3. `run_ins(par1=PAR1, par2=PAR2, par3=PAR3)`: Simulates insolation time series for many parameter sets. It modulates amplitude and combines three sine waves for different parameter sets. Function returns time values (t), and corresponding insolation values for each parameter set (s1, s2, s3) as well as their sum (s).
 
 Example:
-Provides example of running `run_ins` function with default or specified parameters. It plots insolation time series and its components (s1, s2, s3) for visual inspection.
+Provides example of running `run_ins` function with default or specified setting. It plots insolation time series and its components (s1, s2, s3) for visual inspection.
 '''
 def sine(A, T, t, p=0):
   return A * np.sin(2 * np.pi * 1/T * t + p)
@@ -276,14 +276,14 @@ def run_sim(t, signal, sam=SAM):
   # Pre-allocate arrays
   sim_t = np.linspace(0, DUR, sam)
   last_sam_i = last_sam_y = last_sim_x = None
-  
+
   for _ in range(REP):
     sam_i = np.sort(np.random.choice(len(signal), sam, replace=False))
     sam_y = signal[sam_i]
     sim_x = np.interp(t, sim_t, sam_y)
     total_fit += compare(signal, sim_x)
     last_sam_i, last_sam_y, last_sim_x = sam_i, sam_y, sim_x
-  
+
   return t[last_sam_i], last_sam_y, sim_t, last_sim_x, total_fit / REP
 
 
@@ -297,7 +297,7 @@ Code defines function for running simulations with varying sample sizes to asses
 Function:
 - `run_sims(signal, dur=DUR, sig=SIG, rep=REP)`: Performs many simulations with different sample sizes and records fit.
 
-Function runs simulations using following parameters:
+Function runs simulations using following setting:
 - `signal`: Original signal to compare with samples.
 - `dur`: Duration of signal (default: DUR).
 - `sig`: Signal rate (default: SIG).
@@ -323,25 +323,25 @@ def run_sims(t, signal):
   return sams, fits
 
 
-# ## Parameters
+# ## Setting
 
 '''
 Parameter Combination and Signal Simulation
 
-Code contains function for simulating signals with varying parameter combinations and evaluating their fit. It is useful for exploring impact of different parameter settings.
+Code contains function for simulating signals with varying parameter combinations and evaluating their fit. It is useful for exploring impact of different parameter setting.
 
 Function:
 - `run_params(param_ranges)`: Simulates signals with different parameter combinations defined in `param_ranges` and evaluates their fit. It generates all possible permutations of parameter values, applies these values to signal generation, and calculates fit for each combination.
 
 Example:
-- Code allows to vary parameters such as period (T), amplitude (A), period modulation (Tm), amplitude modulation (Am), and phase (p) to study their influence on signal similarity. It provides insights into how different parameter settings affect similarity between signals.
+- Code allows to vary setting such as period (T), amplitude (A), period modulation (Tm), amplitude modulation (Am), and phase (p) to study their influence on signal similarity. It provides insights into how different parameter setting affect similarity between signals.
 '''
 
 def run_params(param_ranges):
   sams = []
   fits = []
   param_combinations = product(*param_ranges.values())
-  
+
   # Predefine default values
   defaults = {
     'T1': _T1, 'T2': _T2, 'T3': _T3,
@@ -351,13 +351,13 @@ def run_params(param_ranges):
     'p1': _p1, 'p2': _p2, 'p3': _p3,
     'sam': SAM
   }
-  
+
   for combination in param_combinations:
     params = defaults.copy()
     # Update with current combination
     for param, value in zip(param_ranges.keys(), combination):
       params[param] = int(value) if param == 'sam' else value
-    
+
     # Generate signals
     pars = fullX(**{k: params[k] for k in ['T1','T2','T3','A1','A2','A3',
                                           'Tm1','Tm2','Tm3','Am1','Am2','Am3',
@@ -385,14 +385,14 @@ It allows to fit logistic function to data, visualise insolation curves, simulat
 
 Function:
 - `logistic_function(x, a, b, c)`: Defines logistic function for curve fitting.
-- `logistic_fit(x_data, y_data, params, maxfev=1e4)`: Fits logistic function to data and returns fitted parameters.
+- `logistic_fit(x_data, y_data, params, maxfev=1e4)`: Fits logistic function to data and returns fitted setting.
 - `find_x_for_y(y, a, b, c)`: Calculates x-value for given y-value in logistic curve.
 - `set_plot_prop(ax, x_scale, y_scale, title, xlim, ylim)`: Sets various properties for plotting including scale, title, and axis limits.
-- `insolation(ax, par1, par2, par3)`: Plots insolation curve and composing signals based on provided parameters.
+- `insolation(ax, par1, par2, par3)`: Plots insolation curve and composing signals based on provided setting.
 - `simulation(ax, signal, sam)`: Simulates signal and compares it to original signal.
 - `simulations(ax, signal)`: Runs simulations with varying sample rates and collects fit values.
-- `parameters(ax, _1, _2, _3, param_ranges)`: Performs parameter sensitivity analysis and collects fit values.
-- `all(ax, _1, _2, _3, param_ranges, title)`: Similar to 'parameters', but accepts custom title.
+- `setting(ax, _1, _2, _3, param_ranges)`: Performs parameter sensitivity analysis and collects fit values.
+- `all(ax, _1, _2, _3, param_ranges, title)`: Similar to 'setting', but accepts custom title.
 - `logistic(ax, x_data, y_data)`: Fits logistic curve to provided data and visualises curve.
 '''
 def logistic_function(x, a, b, c):
@@ -441,10 +441,10 @@ def simulations(ax, t, signal):
   set_plot_prop(ax, 'log', 'linear', 'samples', 'fit', 'Simulations', (1, 1e3), (0, 1))
   return sams, fits
 
-def parameters(ax, param_ranges):
+def setting(ax, param_ranges):
   sams, fits = run_params(param_ranges)
   ax.scatter(sams, fits, s=5, color='darkcyan')
-  set_plot_prop(ax, 'log', 'linear', 'samples', 'fit', 'Parameters', (1, 1e3), (0, 1))
+  set_plot_prop(ax, 'log', 'linear', 'samples', 'fit', 'Setting', (1, 1e3), (0, 1))
   return sams, fits
 
 def all(ax, param_ranges, title):
@@ -501,7 +501,7 @@ def display_tab(ax, params):
 Plot Insolation
 
 Code defines function for creating plot to visualise insolation data using specified parameter combinations (pars).
-Plot provides visual representation of how various parameters impact insolation.
+Plot provides visual representation of how various setting impact insolation.
 
 Function:
 - `plot_ins(pars=PARS)`: Generates plot of insolation data based on provided parameter combinations.
@@ -522,11 +522,11 @@ def plot_ins(pars=PARS):
 '''
 Plot Simulation
 
-Code defines function for creating plot that visualises simulation based on specified parameters.
+Code defines function for creating plot that visualises simulation based on specified setting.
 Simulation involves generating and comparing samples with original signal, helping to assess quality of simulation under various parameter combinations.
 
 Function:
-- `plot_sim(sam=SAM, parX=PARS)`: Generates plot of simulation using specified parameters.
+- `plot_sim(sam=SAM, parX=PARS)`: Generates plot of simulation using specified setting.
 '''
 def plot_sim(sam=SAM, pars=PARS):
   # Figure
@@ -553,10 +553,10 @@ Function:
 
 Function performs following actions:
 1. Sets up multi-panel figure with various subplots using Matplotlib.
-2. Generates insolation signal using provided parameters from `parX`.
+2. Generates insolation signal using provided setting from `parX`.
 3. Runs simulations to compare insolation signal with sampled data, recording fit values.
 4. Analyses sampled data with different parameter ranges.
-5. Performs logistic analysis on simulations and records parameters and covariance.
+5. Performs logistic analysis on simulations and records setting and covariance.
 6. Displays informative text about analysis in fifth subplot.
 7. Adds horizontal and vertical lines to highlight average fit and corresponding sample size.
 '''
@@ -580,7 +580,7 @@ def plot_sims(sam=SAM, param_ranges=_A_, pars=PARS):
   sams_con, fits_con = simulations(ax2, t, signal)
 
   # Variable
-  sams_var, fits_var = parameters(ax3, param_ranges)
+  sams_var, fits_var = setting(ax3, param_ranges)
 
   # Logistic
   params, covariance = logistic(ax2, sams_con, fits_con)
@@ -623,12 +623,12 @@ def plots_sims(sam_values, param_ranges=_A_):
     update_plot(int(round(sam)), param_ranges)
 
 
-# ## Plot Parameters
+# ## Plot Setting
 
 '''
 Parameter Exploration Plot
 
-Code defines functions and plots to explore influence of different parameters on insolation simulations.
+Code defines functions and plots to explore influence of different setting on insolation simulations.
 
 Function:
 - `plot_pars()`: Generates 2x3 grid of subplots for exploring different parameter variations.
@@ -665,13 +665,13 @@ def plot_pars():
 # ## Insolation
 
 '''
-Generate and Plot Default Insolation Parameters
+Generate and Plot Default Insolation Setting
 
-Code generates default insolation parameters using `full()` function, and plots insolation curve using `plot_ins()` function.
+Code generates default insolation setting using `full()` function, and plots insolation curve using `plot_ins()` function.
 
 Function:
-- `pars = full()`: Initialises `pars` variable with default insolation parameters using `full()` function. Parameters represent baseline configuration for insolation simulations.
-- `plot_ins()`: Generates and displays insolation curve based on default parameters. Resulting plot showcases insolation curve with its characteristic components, including variations in amplitude and phase.
+- `pars = full()`: Initialises `pars` variable with default insolation setting using `full()` function. Setting represent baseline configuration for insolation simulations.
+- `plot_ins()`: Generates and displays insolation curve based on default setting. Resulting plot showcases insolation curve with its characteristic components, including variations in amplitude and phase.
 '''
 pars = full()
 plot_ins()
@@ -683,12 +683,12 @@ plt.show()
 '''
 Simulate and Plot Insolation with Variable Sampling
 
-Code simulates and plots insolation curve with variable sampling settings.
+Code simulates and plots insolation curve with variable sampling setting.
 
 Function:
-- `pars = full()`: Initialises `pars` variable with default insolation parameters using `full()` function, representing baseline configuration.
+- `pars = full()`: Initialises `pars` variable with default insolation setting using `full()` function, representing baseline configuration.
 - `sam = 65`: Sets sample-rate to 65, approximate mid-way point on logistic curve.
-- `plot_sim(sam, pars)`: Simulates and plots insolation curve with specified sample-rate and given parameters.
+- `plot_sim(sam, pars)`: Simulates and plots insolation curve with specified sample-rate and given setting.
 '''
 pars = full()
 sam = 65
@@ -708,10 +708,10 @@ Function:
   - Insolation: Generates and displays original signal.
   - Simulation: Generates simulated signal and visualises its fit to original signal.
   - Sampling: Function `simulations` explores how varying number of samples affects fit to original signal and displayes results in scatter plot.
-  - Variable: Function `parameters` explores effect of varying multiple parameters on fit and visualises results in scatter plot.
+  - Variable: Function `setting` explores effect of varying multiple setting on fit and visualises results in scatter plot.
   - Logistic: Applies logistic curve fitting to sampling and variable results and displays fitted curves.
   - Text Information: Provides textual information on analysis.
-  - Lines: Adds Vertical and horizontal lines for specific fit values and corresponding parameters.
+  - Lines: Adds Vertical and horizontal lines for specific fit values and corresponding setting.
 
 - `update_plot(sam, param_ranges)`: Updates multi-plot figure to reflect changes in number of samples (sam) and parameter ranges.
 
@@ -719,9 +719,9 @@ Function:
 
 - `func_lin(ax, params, lines, x_vals, y_vals)`: Adds horizontal and vertical lines for specific values.
 
-- `func_par(axes, variables, lines)`: Generates plots for different parameter variations, including period, amplitude, default parameters, period modulation, amplitude modulation, and phase.
+- `func_par(axes, variables, lines)`: Generates plots for different parameter variations, including period, amplitude, default setting, period modulation, amplitude modulation, and phase.
 
-- `plot_pars()`: Creates multi-plot figure to explore impact of various parameters on fit.
+- `plot_pars()`: Creates multi-plot figure to explore impact of various setting on fit.
 '''
 pars = _A_
 sam = 65
@@ -738,7 +738,7 @@ Signal Analysis and Visualisation - Parameter Exploration
 Code focuses on analysing and visualising signal under different conditions, primarily by exploring effect of parameter variations on signal analysis.
 
 Function:
-- `pars = _A_`: Sets variable `pars` to predefined set of parameters defined in `_A_` variable. These parameters represent initial conditions.
+- `pars = _A_`: Sets variable `pars` to predefined set of setting defined in `_A_` variable. These setting represent initial conditions.
 
 - `sams = _SAM_L_`: Sets variable `sams` to list of sample values defined in `_SAM_L_` variable. These sample values represent different sample sizes.
 
@@ -746,7 +746,7 @@ Function:
   - Insolation: Generates and displays original signal.
   - Simulation: Generates simulated signal and visualises fit to original signal.
   - Sampling: Explores how varying number of samples affects fit to original signal and displays results in scatter plot.
-  - Variable: Visualises effect of varying many parameters on fit.
+  - Variable: Visualises effect of varying many setting on fit.
   - Logistic: Applies logistic curve fitting to sampling and variable results, and displays fitted curves.
   - Text Information: Provides textual information on analysis.
 
@@ -765,20 +765,20 @@ plot_sims(sam, pars)
 plt.show()
 
 
-# ## Parameters
+# ## Setting
 
 '''
 Parameter Analysis and Visualisation
 
-Code focuses on analysis and visualisation of parameters used in signal analysis.
-It explores how changes in specific parameters affect fit of signal and provides visual representations of effects.
+Code focuses on analysis and visualisation of setting used in signal analysis.
+It explores how changes in specific setting affect fit of signal and provides visual representations of effects.
 
 Function:
 - `plot_pars()`: Creates multi-plot figure that analyses and visualises impact of parameter variations on signal fitting.
 Following aspects are explored for different parameter types:
   - Period: Variations in signal period (T) and its effect on fit.
   - Amplitude: Variations in signal amplitudes (A) and their impact on fitting.
-  - Default: Analysis of default parameters (SAM_L) and their effect on signal fitting.
+  - Default: Analysis of default setting (SAM_L) and their effect on signal fitting.
   - Period Modulation: Exploration of effect of period modulation (Tm) on fitting.
   - Amplitude Modulation: Analysis of amplitude modulation (Am) and its impact on signal fitting.
   - Phase: Effect of phase (p) on signal fitting.

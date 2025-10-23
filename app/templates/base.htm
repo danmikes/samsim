@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SamSim | {% block title %}Base{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <script src="{{ url_for('static', filename='base.js') }}"></script>
+  {% block style %}{% endblock %}
+</head>
+<body>
+  <header>
+    {% include 'header.htm' %}
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    {% include 'footer.htm' %}
+  </footer>
+
+  {% block script %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+.container {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2.5fr;
+
+  @media (max-width: 768px) {
+    grid-template-columns: auto;
+    grid-template-rows: 1fr 1fr 2.5fr 2.5fr;
+  }
+}
+
+.full {
+  grid-column: 1 / -1;
+  background: darkcyan;
+}
+
+.half {
+  background: darkmagenta;
+}
