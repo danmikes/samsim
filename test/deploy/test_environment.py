@@ -8,7 +8,7 @@ def test_environment_sanity():
   assert sys.version_info.major == 3
 
   assert Path('app').exists()
-  assert Path('tests').exists()
+  assert Path('test').exists()
 
   assert Path('wsgi.py').exists()
   assert Path('requirements.txt').exists()
