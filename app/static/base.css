@@ -1,7 +1,18 @@
+:root {
+  --gap-s: 5px;
+  --gap-m: 10px;
+  --gap-l: 20px;
+  --pad-n: 0;
+  --pad-s: 5px;
+  --pad-m: 10px;
+  --pad-l: 20px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 html {
@@ -28,8 +39,8 @@ nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 2rem;
-  padding: 5px;
+  gap: var(--gap-l);
+  padding: var(--pad-s);
 }
 
 nav > h1 {
@@ -47,24 +58,35 @@ nav > h2 {
 nav ul {
   display: flex;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-  gap: 1rem;
+  gap: var(--gap-m);
 }
 
 main {
   display: grid;
   background: cyan;
+  min-height: 0;
 }
 
 .container {
   display: grid;
-  gap: 10px;
+  gap: var(--gap-m);
   height: 100%;
-  padding: 10px;
+  min-height: 0;
+  padding: var(--pad-m);
+}
 
-  @media (max-width: 768px) {
-    padding: 0;
+@media (max-width: 768px) {
+  .container {
+    padding: var(--pad-s);
+    gap: var(--gap-s);
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-m);
+    padding: var(--pad-s);
   }
 }
 

@@ -1,0 +1,17 @@
+{% extends "base.htm" %}
+
+{% block title %}Help{% endblock %}
+
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='help.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="full">Help</div>
+</div>
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='help.js') }}"></script>
+{% endblock %}
