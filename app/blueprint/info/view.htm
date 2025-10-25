@@ -1,0 +1,18 @@
+{% extends "base.htm" %}
+
+{% block title %}Info{% endblock %}
+
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('info.static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="half">Insolation</div>
+  <div class="half">Sampling</div>
+</div>
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('info.static', filename='script.js') }}"></script>
+{% endblock %}

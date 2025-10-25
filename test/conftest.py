@@ -54,6 +54,16 @@ def dashboard_blueprint():
   return dashboard
 
 @pytest.fixture
+def help_blueprint():
+  from app.blueprint.help.route import help
+  return help
+
+@pytest.fixture
+def info_blueprint():
+  from app.blueprint.info.route import info
+  return info
+
+@pytest.fixture
 def setting_blueprint():
   from app.blueprint.setting.route import setting
   return setting

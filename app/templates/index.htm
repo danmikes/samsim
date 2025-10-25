@@ -3,15 +3,15 @@
 {% block title %}Home{% endblock %}
 
 {% block style %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="full">Introduction</div>
+  <div class="full">
+    <h1>Welcome to SamSim</h1>
+    <p>Your simulation platform</p>
+    <a href="{{ url_for('info.view') }}">Get Started</a>
+  </div>
 </div>
-{% endblock %}
-
-{% block script %}
-  <script src="{{ url_for('static', filename='home.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+}
+
+.full {
+  flex: 1;
+  background: darkcyan;
+}
+
