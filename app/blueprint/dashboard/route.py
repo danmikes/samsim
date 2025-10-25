@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from app import service
 
 dashboard = Blueprint('dashboard', __name__,
                       static_folder='.',
@@ -7,8 +8,6 @@ dashboard = Blueprint('dashboard', __name__,
 
 @dashboard.route('/')
 def view():
-  return render_template('blueprint/dashboard/view.htm')
+  data = service.get_dashboard_data()
 
-@dashboard.route('/data')
-def get_data():
-  return {'data': 'some data'}
+  return render_template('blueprint/dashboard/view.htm', data=data)

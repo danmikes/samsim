@@ -7,12 +7,16 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<h1>Dashboard</h1>
+<p>Data points: {{ time_data|length }}</p>
+<p>Signals: {{ signals|length }}</p>
+
+<!-- <div class="container">
   <div class="one">Insolation</div>
   <div class="one">Sampling</div>
   <div class="two">Setting</div>
   <div class="two">Fit</div>
-</div>
+</div> -->
 {% endblock %}
 
 {% block script %}

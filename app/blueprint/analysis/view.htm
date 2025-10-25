@@ -7,16 +7,39 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="data-section">
+  <h2>Simulation Data</h2>
+  <p>Time points: {{ data.time_data|length }}</p>
+  <p>Signals: {{ data.signals|length }}</p>
+  <p>Total signal points: {{ data.total_signal|length }}</p>
+</div>
+
+<div class="analysis-section">
+  <h2>Analysis Results</h2>
+  <p>Max amplitude: {{ analysis.max_amplitude }}</p>
+  <p>Min amplitude: {{ analysis.min_amplitude }}</p>
+  <p>Mean amplitude: {{ analysis.mean_amplitude }}</p>
+  <p>Data points: {{ analysis.data_points }}</p>
+</div>
+
+<!-- <div class="container">
   <div class="three">Period</div>
   <div class="three">Amplitude</div>
   <div class="three">Default</div>
   <div class="three">Period mod</div>
   <div class="three">Amplitude mod</div>
   <div class="three">Phase</div>
-</div>
+</div> -->
 {% endblock %}
 
 {% block script %}
 <script src="{{ url_for('analysis.static', filename='script.js') }}"></script>
+
+  const rawData = {
+    time: {{ data.time_data | tojson }},
+    signals: {{ data.signals | tojson }},
+    total: {{ data.total_signal | tojson }}
+  };
+
+  const analysisData = {{ analysis | tojson }};
 {% endblock %}

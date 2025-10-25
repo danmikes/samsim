@@ -2,8 +2,7 @@
   display: flex;
 }
 
-.full {
+.one {
   flex: 1;
   background: darkcyan;
 }
-

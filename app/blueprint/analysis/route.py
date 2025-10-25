@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from app import service
 
 analysis = Blueprint('analysis', __name__,
                      static_folder='.',
@@ -7,8 +8,10 @@ analysis = Blueprint('analysis', __name__,
 
 @analysis.route('/')
 def view():
-  return render_template('blueprint/analysis/view.htm')
+  data = service.get_dashboard_data()
+  analysis_result = service.analyse_simulation()
 
-@analysis.route('/data')
-def get_data():
-  return {'data': 'some data'}
+  return render_template('blueprint/analysis/view.htm',
+    data=data,
+    analysis=analysis_result
+  )

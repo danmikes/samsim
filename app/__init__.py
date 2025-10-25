@@ -1,4 +1,5 @@
 from flask import Flask
+from app.service import service
 
 def create_app():
   app = Flask(__name__)

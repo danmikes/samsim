@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block content %}
+<h1>Settings</h1>
+<p>Duration: {{ duration }}</p>
+<p>Signal Rate: {{ signal_rate }}</p>
+<p>Sample Rate: {{ sample_rate }}</p>
+
 <div class="container">
   <div class="four">
     <h3>Period (T)</h3>
@@ -35,7 +40,7 @@
 <script src="{{ url_for('setting.static', filename='script.js') }}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    fetch("{{ url_for('setting.get_data') }}")
+    fetch("{{ url_for('setting.view') }}")
       .then(response => response.json())
       .then(data => {
         document.getElementById('T-value').textContent = data.T.toLocaleString();
