@@ -3,7 +3,7 @@
 - Flask Python Jinja Pico Docker
 
 ## Code
-- [github](https://github.com/danmikes)
+- [github](https://github.com/danmikes/samsim)
 
 ## Install
 - `source script/setup.sh`
