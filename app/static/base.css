@@ -43,15 +43,15 @@ nav {
   padding: var(--pad-s);
 }
 
-nav > h1 {
+nav>h1 {
   justify-self: start;
 }
 
-nav > ul {
+nav>ul {
   justify-self: center;
 }
 
-nav > h2 {
+nav>h2 {
   justify-self: end;
 }
 
@@ -68,7 +68,6 @@ main {
 }
 
 .container {
-  display: grid;
   gap: var(--gap-m);
   height: 100%;
   min-height: 0;

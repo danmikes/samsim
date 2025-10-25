@@ -3,16 +3,54 @@
 {% block title %}Setting{% endblock %}
 
 {% block style %}
-  <link rel="stylesheet" href="{{ url_for('setting.static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('setting.static', filename='style.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="half">Range</div>
-  <div class="half">Value</div>
+  <div class="four">
+    <h3>Period (T)</h3>
+    <div id="T-value">Loading...</div>
+  </div>
+  <div class="four">
+    <h3>Amplitude (A)</h3>
+    <div id="A-value">Loading...</div>
+  </div>
+  <div class="four">
+    <h3>Period mod (Tm)</h3>
+    <div id="Tm-value">Loading...</div>
+  </div>
+  <div class="four">
+    <h3>Amplitude mod (Am)</h3>
+    <div id="Am-value">Loading...</div>
+  </div>
+  <div class="four">
+    <h3>Phase (p)</h3>
+    <div id="p-value">Loading...</div>
+  </div>
 </div>
 {% endblock %}
 
 {% block script %}
-  <script src="{{ url_for('setting.static', filename='script.js') }}"></script>
+<script src="{{ url_for('setting.static', filename='script.js') }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch("{{ url_for('setting.get_data') }}")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('T-value').textContent = data.T.toLocaleString();
+        document.getElementById('A-value').textContent = data.A.toLocaleString();
+        document.getElementById('Tm-value').textContent = data.Tm.toLocaleString();
+        document.getElementById('Am-value').textContent = data.Am.toLocaleString();
+        document.getElementById('p-value').textContent = data.p;
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        const elements = ['T-value', 'A-value', 'Tm-value', 'Am-value', 'p-value'];
+        elements.forEach(id => {
+          document.getElementById(id).textContent = 'Error loading data';
+        });
+      });
+  });
+</script>
 {% endblock %}

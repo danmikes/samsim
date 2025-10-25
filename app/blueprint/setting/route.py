@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, render_template
+from .service import setting_service
 
 setting = Blueprint('setting', __name__,
                      static_folder='.',
@@ -11,4 +12,12 @@ def view():
 
 @setting.route('/data')
 def get_data():
-  return {'data': 'some data'}
+  data = setting_service.get_setting_data()
+  return jsonify(data)
+
+@setting.route('/data/<key>')
+def get_specific_data(key):
+  value = setting_service.get_setting_by_key(key)
+  if value is not None:
+    return jsonify({key: value})
+  return jsonify({'error': 'Key absent'}), 404

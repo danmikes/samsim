@@ -3,20 +3,20 @@
 {% block title %}Analysis{% endblock %}
 
 {% block style %}
-  <link rel="stylesheet" href="{{ url_for('analysis.static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('analysis.static', filename='style.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="third">Period</div>
-  <div class="third">Amplitude</div>
-  <div class="third">Default</div>
-  <div class="third">Period mod</div>
-  <div class="third">Amplitude mod</div>
-  <div class="third">Phase</div>
+  <div class="three">Period</div>
+  <div class="three">Amplitude</div>
+  <div class="three">Default</div>
+  <div class="three">Period mod</div>
+  <div class="three">Amplitude mod</div>
+  <div class="three">Phase</div>
 </div>
 {% endblock %}
 
 {% block script %}
-  <script src="{{ url_for('analysis.static', filename='script.js') }}"></script>
+<script src="{{ url_for('analysis.static', filename='script.js') }}"></script>
 {% endblock %}
