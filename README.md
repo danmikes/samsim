@@ -14,7 +14,7 @@
 - `443 -> 77.169.29.77`
 
 ## Develop
-- `flask run --debug`
+- `flask run
 - [view](http://localhost:5000)
 
 ## Test
