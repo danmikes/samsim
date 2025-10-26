@@ -17,9 +17,9 @@ class AppService:
     total = data['total_signal']
 
     return {
-      'max_amplitude': max(total),
-      'min_amplitude': min(total),
-      'mean_amplitude': sum(total) / len(total),
+      'max_amplitude': int(max(total)),
+      'min_amplitude': int(min(total)),
+      'mean_amplitude': int(sum(total) / len(total)),
       'data_points': len(total)
     }
 
@@ -28,6 +28,7 @@ class AppService:
       'duration': self.sim.config['DUR'],
       'signal_rate': self.sim.config['SIG'],
       'sample_rate': self.sim.config['SAM'],
+      'repetitions': self.sim.config['REP'],
       'default_parameters': self.sim.default_pars
     }
 

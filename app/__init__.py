@@ -1,8 +1,20 @@
 from flask import Flask
-from app.service import service
 
 def create_app():
   app = Flask(__name__)
+
+  @app.template_filter('format_number')
+  def format_number(value):
+    if isinstance(value, (int, float)):
+        if value >= 1_000_000:
+            return f"{value:_}"  # 1_000_000
+        elif value >= 10_000:
+            return f"{value:,}"  # 10,000
+        elif value >= 1_000:
+            return f"{value:_}"  # 1_000
+        else:
+            return str(value)
+    return value
 
   from .route import base
   from .blueprint.info.route import info
@@ -12,10 +24,10 @@ def create_app():
   from .blueprint.help.route import help
 
   app.register_blueprint(base)
-  app.register_blueprint(info, url_prefix='/info')
-  app.register_blueprint(analysis, url_prefix='/analysis')
-  app.register_blueprint(dashboard, url_prefix='/dashboard')
-  app.register_blueprint(setting, url_prefix='/setting')
-  app.register_blueprint(help, url_prefix='/help')
+  app.register_blueprint(info)
+  app.register_blueprint(analysis)
+  app.register_blueprint(dashboard)
+  app.register_blueprint(setting)
+  app.register_blueprint(help)
 
   return app

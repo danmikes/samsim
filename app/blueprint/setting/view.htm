@@ -7,55 +7,35 @@
 {% endblock %}
 
 {% block content %}
-<h1>Settings</h1>
-<p>Duration: {{ duration }}</p>
-<p>Signal Rate: {{ signal_rate }}</p>
-<p>Sample Rate: {{ sample_rate }}</p>
-
 <div class="container">
-  <div class="four">
-    <h3>Period (T)</h3>
-    <div id="T-value">Loading...</div>
-  </div>
-  <div class="four">
-    <h3>Amplitude (A)</h3>
-    <div id="A-value">Loading...</div>
-  </div>
-  <div class="four">
-    <h3>Period mod (Tm)</h3>
-    <div id="Tm-value">Loading...</div>
-  </div>
-  <div class="four">
-    <h3>Amplitude mod (Am)</h3>
-    <div id="Am-value">Loading...</div>
-  </div>
-  <div class="four">
-    <h3>Phase (p)</h3>
-    <div id="p-value">Loading...</div>
+  <h1>Setting</h1>
+
+  <div>
+    <h2>Simulation</h2>
+    <p>Duration (DUR): {{ data.duration | format_number  }}</p>
+    <p>Signal rate (SIG): {{ data.signal_rate | format_number  }}</p>
+    <p>Sample rate (SAM): {{ data.sample_rate | format_number  }}</p>
+    <p>Repetitions (REP): {{ data.repetitions | format_number  }}</p>
+
+    <h2>Default Signal Parameters</h2>
+    {% for param in data.default_parameters %}
+    <div class="signal-row">
+      <h3>Signal {{ loop.index }}</h3>
+      <div class="param-values">
+        {% for key,value in param._asdict().items() %}
+          <span><strong>{{ key }}:</strong>{{ value }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
 
 {% block script %}
 <script src="{{ url_for('setting.static', filename='script.js') }}"></script>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    fetch("{{ url_for('setting.view') }}")
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('T-value').textContent = data.T.toLocaleString();
-        document.getElementById('A-value').textContent = data.A.toLocaleString();
-        document.getElementById('Tm-value').textContent = data.Tm.toLocaleString();
-        document.getElementById('Am-value').textContent = data.Am.toLocaleString();
-        document.getElementById('p-value').textContent = data.p;
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        const elements = ['T-value', 'A-value', 'Tm-value', 'Am-value', 'p-value'];
-        elements.forEach(id => {
-          document.getElementById(id).textContent = 'Error loading data';
-        });
-      });
-  });
+  const rawData = JSON.parse(' {{ data | tojson | safe }}')
 </script>
 {% endblock %}

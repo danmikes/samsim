@@ -1,8 +1,3 @@
 .container {
-  display: flex;
-}
-
-.one {
-  flex: 1;
   background: darkgoldenrod;
 }

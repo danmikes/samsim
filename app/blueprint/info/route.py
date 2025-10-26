@@ -3,7 +3,8 @@ from flask import Blueprint, render_template
 info = Blueprint('info', __name__,
                      static_folder='.',
                      static_url_path='/info',
-                     template_folder='.')
+                     template_folder='.',
+                     url_prefix='/info')
 
 @info.route('/')
 def view():
