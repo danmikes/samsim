@@ -1,6 +1,16 @@
+# python
 __pycache__/
 .pytest_cache/
 .venv/
+
+# develop
 .vscode/
-.DS_Store
+.flaskenv
 *.log
+
+# system
+.DS_Store
+
+# run
+cache.sh
+venv.sh

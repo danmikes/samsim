@@ -22,5 +22,5 @@
 
 ## Deploy
 - `git push`
-- [health](https://dmikes.duckdns.org/health)
-- [view](https://dmikes.duckdns.org)
+- [health](https://samsim.onrender.com/health)
+- [view](https://samsim.onrender.com)

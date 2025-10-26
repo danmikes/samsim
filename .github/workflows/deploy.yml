@@ -1,11 +1,17 @@
-name: Deploy to Google Cloud Run
+name: Deploy to Render
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs:
-  call-webhook:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Trigger deploy
-        run: |
-          curl -f -H "Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}" "${{ secrets.DEPLOY_URL }}"
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Trigger Render deploy
+      run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
