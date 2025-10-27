@@ -1,0 +1,63 @@
+{% extends "base.htm" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('dashboard.static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <div class="cell insolation">
+    {{ insolation_chart | safe }}
+  </div>
+
+  <div class="cell simulation">
+    {{ simulation_chart | safe }}
+  </div>
+
+  <div class="grid-half bottom">
+    <div class="cell logistic">
+      {{ logistic_chart | safe }}
+    </div>
+
+    <div class="cell data">
+      <div class="grid-third">
+        {% for param_name in ['T', 'A', 'p'] %}
+          {% with %}
+            {% set param_name=param_name %}
+            {% set signals=signals %}
+            {% include 'data.htm' %}
+          {% endwith %}
+        {% endfor %}
+        {% for param_name in ['Tm', 'Am'] %}
+          {% with %}
+            {% set param_name=param_name %}
+            {% set signals=signals %}
+            {% include 'data.htm' %}
+          {% endwith %}
+        {% endfor %}
+        <div class="data-cell">
+          <h4>Configuration</h4>
+          {% for key, value in sim.items() %}
+          <div class="item">
+            <span>{{ key.replace('_', ' ').title() }}</span>
+            <span>
+              {% if key in ['time_span'] %}
+                {{ value | scientific }}
+              {% else %}
+                {{ value }}
+              {% endif %}
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('dashboard.static', filename='script.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+<div class="data-cell">
+  <h4>{{ param_name }} {% if param_name in ['T','Tm'] %}[Ma]{% elif param_name in ['A','Am'] %}[m]{% else %}[rad]{% endif %}</h4>
+
+  {% for signal_name, param in signals.items() %}
+  <div class="item">
+    <span>{{ param_name }}{{ loop.index }}</span>
+    <span>{{ param[param_name] | format_param(param_name) }}</span>
+  </div>
+  {% endfor %}
+</div>

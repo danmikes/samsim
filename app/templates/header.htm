@@ -1,0 +1,23 @@
+<nav>
+  <div class="left">
+    <a href="https://www.github.com/danmikes/samsim" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-github"></i>
+    </a>
+    <a>{{ page_title | default('Home') }}</a>
+  </div>
+  <div class="center">
+    <ul>
+      <li><a href="{{ url_for('info.view') }}" class="{{ 'active' if request.endpoint == 'info.view' else '' }}">Info</a></li>
+      <li><a href="{{ url_for('dashboard.view') }}" class="{{ 'active' if request.endpoint == 'dashboard.view' else '' }}">Dashboard</a></li>
+      <li><a href="{{ url_for('control.view') }}" class="{{ 'active' if request.endpoint == 'control.view' else '' }}">Control</a></li>
+    </ul>
+  </div>
+  <div class="right">
+    <a href="{{ url_for('base.index') }}">SamSim</a>
+    <a href="https://www.researchgate.net/publication/375560659_Sensitivity_of_shoreline-trajectory_to_deposition-events" target="_blank" rel="noopener noreferrer">
+      <i style="display: inline-flex; width: 1.5em; height: 1.5em; background: #222; border-radius: 4px; align-items: center; justify-content: center; color: #066; font-weight: bold;">
+        R<sup style="color: inherit; position: relative; top: -0.3em;">G</sup>
+      </i>
+    </a>
+  </div>
+</nav>
