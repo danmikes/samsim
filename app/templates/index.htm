@@ -1,0 +1,18 @@
+{% extends "base.htm" %}
+
+{% block title %}Home{% endblock %}
+
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <div class="cell">
+    <h1>How sensitive</h1>
+    <h1>is Sequo-Strat</h1>
+    <h1>to sampling?</h1>
+    <a href="{{ url_for('info.view') }}" class="button">Start</a>
+  </div>
+</div>
+{% endblock %}

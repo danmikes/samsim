@@ -1,0 +1,23 @@
+{% extends "base.htm" %}
+
+{% block title %}Info{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('info.static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <div class="cell">
+    {% include 'insolation.htm' %}
+  </div>
+
+  <div class="cell">
+    {% include 'simulation.htm' %}
+  </div>
+
+  <div class="cell">
+    {% include 'fit.htm' %}
+  </div>
+</div>
+{% endblock %}
