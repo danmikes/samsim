@@ -1,0 +1,26 @@
+<nav>
+  <div class="left">
+    <div id="loadingSpinner" class="loading-spinner spinner"></div>
+    <a href="/">{{ page_title | default('Home') }}</a>
+  </div>
+  <div class="center">
+    <ul>
+      <li><a href="{{ url_for('info.view') }}" class="{{ 'active' if request.endpoint == 'info.view' else '' }}">Info</a></li>
+      <li><a href="{{ url_for('dashboard.view') }}" class="{{ 'active' if request.endpoint == 'dashboard.view' else '' }}">Dashboard</a></li>
+      <li><a href="{{ url_for('control.view') }}" class="{{ 'active' if request.endpoint == 'control.view' else '' }}">Control</a></li>
+    </ul>
+  </div>
+  <div class="right">
+    <a href="https://danmikes.github.io/forum" target="_blank" rel="noopener noreffer">
+      <i id="forum" class="fab fa-discourse"></i>
+    </a>
+    <a href="https://www.github.com/danmikes/samsim" target="_blank" rel="noopener noreferrer">
+      <i id="github" class="fab fa-github"></i>
+    </a>
+    <a href="https://www.researchgate.net/publication/375560659_Sensitivity_of_shoreline-trajectory_to_deposition-events" target="_blank" rel="noopener noreferrer">
+      <i id="research-gate">
+        R<sup class="sup">G</sup>
+      </i>
+    </a>
+  </div>
+</nav>
