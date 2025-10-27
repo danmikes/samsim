@@ -1,0 +1,41 @@
+{% extends "base.htm" %}
+
+{% block title %}Setting{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('setting.static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Setting</h1>
+
+  <div>
+    <h2>Simulation</h2>
+    <p>Duration (DUR): {{ data.duration | format_number  }}</p>
+    <p>Signal rate (SIG): {{ data.signal_rate | format_number  }}</p>
+    <p>Sample rate (SAM): {{ data.sample_rate | format_number  }}</p>
+    <p>Repetitions (REP): {{ data.repetitions | format_number  }}</p>
+
+    <h2>Default Signal Parameters</h2>
+    {% for param in data.default_parameters %}
+    <div class="signal-row">
+      <h3>Signal {{ loop.index }}</h3>
+      <div class="param-values">
+        {% for key,value in param._asdict().items() %}
+          <span><strong>{{ key }}:</strong>{{ value | format_number }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('setting.static', filename='script.js') }}"></script>
+
+<script>
+  const rawData = JSON.parse(' {{ data | tojson | safe }}')
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+# develop
+.vscode/
+.env
+.flaskenv
+*.log
+
+# doc
+README.md
+
+# python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# run
+cache.sh
+venv.sh
+
+# system
+.DS_Store

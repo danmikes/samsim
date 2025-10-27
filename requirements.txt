@@ -1,0 +1,7 @@
+# python3.11 | render
+Flask
+numpy
+scipy
+matplotlib
+gunicorn
+pytest
