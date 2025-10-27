@@ -1,0 +1,16 @@
+# develop
+.vscode/
+.env
+.flaskenv
+*.log
+
+# doc
+README.md
+
+# python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# system
+.DS_Store

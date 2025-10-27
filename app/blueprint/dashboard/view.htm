@@ -1,0 +1,70 @@
+{% extends "base.htm" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('dashboard.static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <div class="cell insolation">
+    <div class="chart-container">
+      <canvas id="insolationChart"></canvas>
+    </div>
+  </div>
+
+  <div class="cell simulation">
+    <div class="chart-container">
+      <canvas id="simulationChart"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-half bottom">
+    <div class="cell logistic">
+      <div class="chart-container">
+        <canvas id="logisticChart"></canvas>
+      </div>
+    </div>
+
+    <div class="cell data">
+      <div class="grid-third">
+        {% for param_name in ['T', 'A', 'p'] %}
+          {% with %}
+            {% set param_name=param_name %}
+            {% set signals=signals %}
+            {% include 'data.htm' %}
+          {% endwith %}
+        {% endfor %}
+        {% for param_name in ['Tm', 'Am'] %}
+          {% with %}
+            {% set param_name=param_name %}
+            {% set signals=signals %}
+            {% include 'data.htm' %}
+          {% endwith %}
+        {% endfor %}
+        <div class="data-cell">
+          <h4>Configuration</h4>
+          {% for key, value in sim.items() %}
+          <div class="item">
+            <span>{{ key.replace('_', ' ').title() }}</span>
+            <span>
+              {% if key in ['time_span'] %}
+                {{ value | scientific }}
+              {% else %}
+                {{ value }}
+              {% endif %}
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{{ url_for('dashboard.static', filename='script.js') }}"></script>
+{% endblock %}

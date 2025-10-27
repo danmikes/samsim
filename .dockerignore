@@ -1,0 +1,32 @@
+# develop
+.vscode/
+.env
+.flaskenv
+*.log
+
+# doc
+README.md
+
+# docker
+Dockerfile
+.dockerignore
+
+# git
+.git/
+.github/
+
+# python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# run
+copy.sh
+venv.sh
+
+# system
+.DS_Store
+
+# test
+pytest.ini
+test/
