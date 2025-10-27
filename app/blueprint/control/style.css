@@ -1,0 +1,118 @@
+.grid {
+  grid-template-areas:
+    "controls"
+    "insolation"
+    "simulation"
+    "sample";
+  display: grid;
+  gap: var(--gap-m);
+  min-height: 0;
+  padding: var(--pad-m);
+}
+
+.controls { grid-area: controls; }
+.insolation { grid-area: insolation; }
+.simulation { grid-area: simulation; }
+.sample { grid-area: sample; }
+
+@media (min-width: 769px) {
+  .grid {
+    grid-template-areas:
+      "controls controls"
+      "insolation insolation"
+      "simulation sample";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
+}
+
+.section {
+  background: var(--deep-emerald);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--pad-m);
+}
+
+.controls {
+  display: flex;
+  gap: var(--gap-m);
+  justify-content: center;
+  padding: var(--pad-s);
+}
+
+.signals {
+  display: grid;
+  gap: var(--gap-m);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.signal {
+  background: var(--back);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: var(--pad-m);
+}
+
+.param {
+  align-items: center;
+  border-bottom: var(--border);
+  display: grid;
+  gap: var(--gap-m);
+  grid-template-columns: 1fr auto;
+  padding: var(--pad-s) 0;
+}
+
+.param:last-child {
+  border-bottom: none;
+}
+
+button {
+  background: #990;
+  border-radius: var(--radius);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: var(--pad-m) var(--pad-l);
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.btn-save { background: var(--green); }
+.btn-reset { background: var(--red); }
+
+input {
+  background: var(--back);
+  border-radius: var(--radius);
+  border: var(--border);
+  color: var(--yellow);
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: var(--pad-s);
+  text-align: right;
+  width: 120px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    gap: var(--gap-s);
+    padding: var(--pad-s);
+  }
+
+  .signals {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  input {
+    width: 100px;
+  }
+}

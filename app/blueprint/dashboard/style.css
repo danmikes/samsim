@@ -1,0 +1,162 @@
+.grid {
+  display: grid;
+  gap: var(--gap-s);
+  grid-template-areas:
+    "insolation"
+    "simulation"
+    "bottom";
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  min-height: 100%;
+  padding: var(--pad-s);
+}
+
+@media (min-height: 600px) and (min-width: 768px) {
+  .grid {
+    grid-template-rows: 1fr 1fr 2.5fr;
+    height: 80vh;
+    max-height: 800px;
+  }
+}
+
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px)
+  and (orientation: landscape)
+  and (-webkit-min-device-pixel-ratio: 2) {
+  .grid {
+    height: 75vh;
+  }
+}
+
+.grid-half {
+  display: grid;
+  gap: var(--gap-s);
+  grid-template-areas: "logistic data";
+  grid-template-columns: 1fr 1fr;
+  min-height: 0;
+}
+
+.grid-third {
+  display: grid;
+  gap: var(--gap-s);
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  min-height: 0;
+}
+
+.insolation { grid-area: insolation; }
+.simulation { grid-area: simulation; }
+.bottom { grid-area: bottom; }
+.logistic { grid-area: logistic; }
+.data { grid-area: data; }
+
+.cell {
+  align-content: start;
+  background: var(--deep-emerald);
+  border-radius: var(--radius);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  display: grid;
+  font-size: clamp(14px, 3vw, 15px);
+  gap: var(--gap-s);
+  grid-template-rows: 1fr;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.cell canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  min-height: 0;
+}
+
+.chart-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.data-cell {
+  background: var(--deep-emerald);
+  border-radius: var(--radius);
+  display: block;
+  padding: var(--pad-l);
+}
+
+.item {
+  border-bottom: var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-s);
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item h5 {
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .grid-half {
+    grid-template-areas:
+      "logistic"
+      "data";
+    grid-template-columns: 1fr;
+  }
+
+  .grid-third {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+@media (max-width: 486px) {
+  .grid-half, .grid-third {
+    grid-template-columns: 1fr;
+  }
+
+  .cell {
+    font-size: 14px;
+    padding: var(--pad-s);
+  }
+
+  .grid-third {
+    grid-template-rows: auto auto;
+  }
+
+  .logistic {
+    aspect-ratio: 2/1;
+  }
+
+  .logistic .chartjs-render-monitor {
+    overflow: hidden !important;
+  }
+}
+
+.spinner {
+  width: 25px;
+  height: 25px;
+  border: 8px solid var(--deep-emerald);
+  border-top: 8px solid #AA0;
+  border-radius: 50%;
+  animation: spin 1.4s linear infinite;
+  background: #333;
+}
+
+.spinner p {
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

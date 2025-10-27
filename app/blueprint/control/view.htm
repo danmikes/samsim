@@ -1,0 +1,70 @@
+{% extends "base.htm" %}
+
+{% block title %}Control{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('control.static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <div class="controls">
+    <button onclick="saveConfig()" class="btn-save">Save</button>
+    <button onclick="resetConfig()" class="btn-reset">Reset</button>
+  </div>
+
+  <div class="section insolation">
+    <h2>Insolation</h2>
+    <div class="signals">
+      {% for name, signal in config.signal.items() %}
+      <div class="signal">
+        <h3>{{ name | upper }}</h3>
+        {% for param, value in signal.items() %}
+        <div class="param">
+          <span>{{ param }}</span>
+          <input type="number"
+                 data-category="signal"
+                 data-signal="{{ name }}"
+                 data-param="{{ param }}"
+                 value="{{ value | format_input(param) }}"
+                 step="{{ 1000 if param in ['T','Tm'] else 0.1 }}">
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="section simulation">
+    <h2>Simulation</h2>
+    {% for param, value in config.sim.items() %}
+    <div class="param">
+      <span>{{ param.replace('_', ' ').title() }}</span>
+      <input type="number"
+             data-category="sim"
+             data-param="{{ param }}"
+             value="{{ value | format_input(param) }}"
+             step="any">
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="section sample">
+    <h2>Sample</h2>
+    {% for param, value in config.sample.items() %}
+    <div class="param">
+      <span>{{ param.replace('_', ' ').title() }}</span>
+      <input type="number"
+             data-category="sample"
+             data-param="{{ param }}"
+             value="{{ value | format_input(param) }}"
+             step="{{ 0.1 if param == 'target_fit' else 1 }}">
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('control.static', filename='script.js') }}"></script>
+{% endblock %}
