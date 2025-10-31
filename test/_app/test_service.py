@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
-from app.service import AppService
-from app.util import Par
+from app.service.app_service import AppService
+from app.service.insolation_manager import Par
 
 class TestAppService:
   def setup_method(self):
@@ -9,7 +9,7 @@ class TestAppService:
 
   def test_initialization(self):
     assert hasattr(self.service, 'sim')
-    assert self.service.sim is not None
+    assert self.service.simulation_manager is not None
 
   def test_get_dashboard_data(self):
     data = self.service.get_dashboard_data()

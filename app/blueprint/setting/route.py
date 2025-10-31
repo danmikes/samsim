@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template
-from app.service import service
+from flask import Blueprint, current_app, render_template
+from app.service.app_service import service
 
 setting = Blueprint('setting', __name__,
                      static_folder='.',

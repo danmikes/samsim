@@ -15,6 +15,10 @@
     <p>Time points: {{ data.time_data|length | format_number  }}</p>
     <p>Signals: {{ data.signals|length | format_number  }}</p>
     <p>Total signal points: {{ data.total_signal|length | format_number  }}</p>
+
+    {% if data.time_data %}
+      <p>Time range: {{ (data.time_data[-1] - data.time_data[0]) | format_number }}</p>
+    {% endif %}
   </div>
 
   <div class="analysis-section">
@@ -22,7 +26,21 @@
     <p>Max amplitude: {{ analysis.max_amplitude | format_number  }}</p>
     <p>Min amplitude: {{ analysis.min_amplitude | format_number  }}</p>
     <p>Mean amplitude: {{ analysis.mean_amplitude | format_number  }}</p>
+    <p>Standard deviation: {{ analysis.std_amplitude | format_number  }}</p>
+    <p>Median amplitude: {{ analysis.median_amplitude | format_number  }}</p>
     <p>Data points: {{ analysis.data_points | format_number  }}</p>
+
+    {% if analysis.signal_stats and not ehnhanced %}
+    <h3>Individual Signal Statistics</h3>
+    {% for signal_name, stats in analysis.signal_stats.items() %}
+    <div class="signal-stats">
+      <h4>{{ signal_name }}</h4>
+      <p>Max: {{ stats.max | format_number }}</p>
+      <p>Min: {{ stats.min | format_number }}</p>
+      <p>Mean: {{ stats.mean | format_number }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
   </div>
 </div>
 {% endblock %}
@@ -33,5 +51,6 @@
 <script>
   const rawData = JSON.parse('{{ data | tojson | safe }}');
   const analysisData = JSON.parse('{{ analysis | tojson | safe }}' );
+  console.log('Enhance analysis:', analysisData);
 </script>
 {% endblock %}

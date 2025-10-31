@@ -1,28 +1,30 @@
+from __future__ import annotations
 from flask import Flask
+from app.config.base import Config
+from app.util.template_filters import register_template_filters
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  from app.service.app_service import AppService
+
+class ServiceApp(Flask):
+  service: AppService
 
 def create_app():
-  app = Flask(__name__)
+  app = ServiceApp(__name__)
+  app.config.from_object(Config)
 
-  @app.template_filter('format_number')
-  def format_number(value):
-    try:
-      num = int(float(value))
-      return f"{num:_}"
-    except (ValueError, TypeError):
-      return str(value)
+  from app.service.app_service import AppService
+  app.service = AppService()
 
-  from .route import base
-  from .blueprint.info.route import info
-  from .blueprint.analysis.route import analysis
-  from .blueprint.dashboard.route import dashboard
-  from .blueprint.setting.route import setting
-  from .blueprint.help.route import help
-
-  app.register_blueprint(base)
-  app.register_blueprint(info)
-  app.register_blueprint(analysis)
-  app.register_blueprint(dashboard)
-  app.register_blueprint(setting)
-  app.register_blueprint(help)
+  _register_blueprints(app)
+  register_template_filters(app)
 
   return app
+
+def _register_blueprints(app):
+  for bp_path in app.config['BLUEPRINTS']:
+    module_path, bp_name = bp_path.rsplit('.', 1)
+    module = __import__(module_path, fromlist=[bp_name])
+    blueprint = getattr(module, bp_name)
+    app.register_blueprint(blueprint)

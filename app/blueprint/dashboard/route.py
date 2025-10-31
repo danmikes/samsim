@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from app.service import service
+from app.service.app_service import service
 
 dashboard = Blueprint('dashboard', __name__,
                       static_folder='.',

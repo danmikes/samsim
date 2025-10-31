@@ -1,10 +1,10 @@
 import pytest
 import numpy as np
-from app.util import SimulationManager, Par
+from app.service.insolation_manager import InsolationManager, Par
 
 class TestSimulationManager:
   def setup_method(self):
-    self.sim = SimulationManager()
+    self.sim = InsolationManager()
 
   def test_initialization(self):
     assert hasattr(self.sim, 'default_pars')

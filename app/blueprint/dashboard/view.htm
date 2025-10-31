@@ -12,6 +12,19 @@
   <p>Data points: {{ data.time_data|length | format_number  }}</p>
   <p>Signals: {{ data.signals|length | format_number  }}</p>
   <p>Total signal points: {{ data.total_signal|length | format_number  }}</p>
+
+  <div class="enhanced-stats">
+    <h2>Enhanced Statistics</h2>
+    {% if data.time_data %}
+      <p>Time range: {{ (data.time_data | safe_subtract | format_number) }}</p>
+      {% set first_val = data.time_data[0] %}
+      {% set last_val = data.time_data[-1] %}
+      {# <p>Debug: first={{ first_val }}, last={{ last_val }}, types={{ first_val|type }}, {{ last_val|type }}</p> #}
+      <p>Start time: {{ (data.time_data[0] | format_number) }}</p>
+      <p>Time range: {{ (data.time_data[-1] | format_number) }}</p>
+    {% endif %}
+    <p>Signal correlation analysis available</p>
+  </div>
 </div>
 {% endblock %}
 
@@ -20,5 +33,6 @@
 
 <script>
   const rawData = JSON.parse('{{ data | tojson | safe }}');
+  console.log('Enhanced data structure:', rawData);
 </script>
 {% endblock %}

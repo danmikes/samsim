@@ -2,6 +2,7 @@
 Flask
 numpy
 scipy
-matplotlib
+pandas
+plotly
 gunicorn
 pytest

@@ -1,14 +1,14 @@
-from collections import namedtuple
-from app.config import Config
-
 import numpy as np
+import pandas as pd
+from collections import namedtuple
+# from app.config import Config
 
 Par = namedtuple('Pars', ['T','A','Tm','Am','p'])
 
-class SimulationManager:
+class InsolationManager:
   def __init__(self):
     self.default_pars = self._get_default_parameters()
-    self.config = Config.SIMULATION_CONFIG
+    # self.config = Config.CONFIG
 
   def _get_default_parameters(self):
     T1, T2, T3 = int(1.0e5), int(4.1e4), int(2.6e4)
@@ -27,16 +27,17 @@ class SimulationManager:
       pars = self.default_pars
 
     t = np.linspace(0, int(1e6), int(1e3))
-    signals = []
+    signals = pd.DataFrame({'time': t})
 
-    for par in pars:
+    for i, par in enumerate(pars):
       A_mod = par.A + self.cosine(par.Am, par.Tm, t)
       signal = self.sine(A_mod, par.T, t)
-      signals.append(signal)
+      signals[f'signal_{i}'] = signal
 
-    total_signal = np.sum(signals, axis=0)
+    signal_columns = [col for col in signals.columns if col.startswith('signal_')]
+    signals['total_signal'] = signals[signal_columns].sum(axis=1)
 
-    return t, signals, total_signal
+    return signals
 
   def sine(self, A, T, t, p=0):
     return A * np.sin(2 * np.pi * 1/T * t + p)
