@@ -29,7 +29,7 @@ class TestAppService:
     assert all(len(s) == 1000 for s in data['signals'])
 
   def test_analyse_simulation(self):
-    analysis = self.service.analyse_simulation()
+    analysis = self.service.get_analysis()
 
     assert 'max_amplitude' in analysis
     assert 'min_amplitude' in analysis
@@ -51,12 +51,12 @@ class TestAppService:
 
     assert 'duration' in settings
     assert 'signal_rate' in settings
-    assert 'sample_rate' in settings
+    assert 'sample_size' in settings
     assert 'default_parameters' in settings
 
     assert settings['duration'] == 1000000
     assert settings['signal_rate'] == 1000
-    assert settings['sample_rate'] == 100
+    assert settings['sample_size'] == 100
     assert isinstance(settings['default_parameters'], tuple)
     assert len(settings['default_parameters']) == 3
 
@@ -79,7 +79,7 @@ class TestAppService:
     json_str = json.dumps(data)
     assert isinstance(json_str, str)
 
-    analysis = self.service.analyse_simulation()
+    analysis = self.service.get_analysis()
     json_str = json.dumps(analysis)
     assert isinstance(json_str, str)
 
@@ -87,7 +87,7 @@ class TestAppService:
     data = self.service.get_dashboard_data()
     total_signal = data['total_signal']
 
-    analysis = self.service.analyse_simulation()
+    analysis = self.service.get_analysis()
 
     expected_max = max(total_signal)
     expected_min = min(total_signal)

@@ -30,7 +30,7 @@
     <p>Median amplitude: {{ analysis.median_amplitude | format_number  }}</p>
     <p>Data points: {{ analysis.data_points | format_number  }}</p>
 
-    {% if analysis.signal_stats and not ehnhanced %}
+    {% if analysis.signal_stats and not enhanced %}
     <h3>Individual Signal Statistics</h3>
     {% for signal_name, stats in analysis.signal_stats.items() %}
     <div class="signal-stats">

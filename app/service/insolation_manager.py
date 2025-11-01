@@ -1,14 +1,12 @@
 import numpy as np
 import pandas as pd
 from collections import namedtuple
-# from app.config import Config
 
 Par = namedtuple('Pars', ['T','A','Tm','Am','p'])
 
 class InsolationManager:
   def __init__(self):
     self.default_pars = self._get_default_parameters()
-    # self.config = Config.CONFIG
 
   def _get_default_parameters(self):
     T1, T2, T3 = int(1.0e5), int(4.1e4), int(2.6e4)

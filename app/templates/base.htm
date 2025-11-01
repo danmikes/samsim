@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SamSim | {% block title %}Base{% endblock %}</title>
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#121212">
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.10/css/pico.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
   <script src="{{ url_for('static', filename='base.js') }}"></script>
+  <title>SamSim | {% block title %}Base{% endblock %}</title>
+
   {% block style %}{% endblock %}
 </head>
 <body>
