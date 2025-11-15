@@ -4,9 +4,6 @@ import pandas as pd
 from app.config import Config
 
 class InsolationService:
-  def __init__(self):
-    pass
-
   @lru_cache(maxsize=1)
   def run_insolation(self):
     params = Config.signal.signals

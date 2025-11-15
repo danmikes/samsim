@@ -7,12 +7,10 @@ from app.config import Config
 from app.service.simulation_service import SimulationService
 
 class LogisticService:
-  def __init__(self):
-    self.simulation_service = SimulationService()
-
   @lru_cache(maxsize=1)
   def run_logistic(self):
-    simulations = self.simulation_service.run_many_simulations()
+    simulation_service = SimulationService()
+    simulations = simulation_service.run_many_simulations()
     target_fit = Config.sim.sim.target_fit
 
     logistic_result = self.logistic_analysis(simulations)
@@ -68,7 +66,8 @@ class LogisticService:
 
   def find_optimal_sample_rate(self, target_fit=0.9, simulation_results=None):
     if simulation_results is None:
-      simulation_results = self.simulation_service.run_many_simulations()
+      logistic_data = self.run_logistic()
+      simulation_results = logistic_data['simulation_data']
 
     logistic_result = self.logistic_analysis(simulation_results)
 
